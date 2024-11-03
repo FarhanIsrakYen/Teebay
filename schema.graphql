@@ -1,0 +1,76 @@
+enum Category {
+  ELECTRONICS
+  FURNITURE
+  HOME_APPLIANCES
+  SPORTING_GOODS
+  OUTDOOR
+  TOYS
+}
+
+enum Status {
+  BUY
+  RENT
+}
+
+type User {
+  id: ID!
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  address: String!
+  phone: String!
+  products: [Product!]!
+}
+
+type Product {
+  id: ID!
+  title: String!
+  description: String!
+  category: Category!
+  isAvailable: Boolean!
+  owner: User!
+  status: Status!
+}
+
+type Query {
+  getUser(id: ID!): User
+  getUsers: [User!]!
+  getProduct(id: ID!): Product
+  getProducts: [Product!]!
+}
+
+type Mutation {
+  registerUser(
+    firstName: String!
+    lastName: String!
+    address: String!
+    email: String!
+    phone: String!
+    password: String!
+  ): User!
+
+  createProduct(
+    title: String!
+    description: String!
+    category: Category!
+    isAvailable: Boolean
+    ownerId: ID!
+    status: Status!
+  ): Product!
+
+  updateProduct(
+    id: ID!
+    title: String
+    description: String
+    category: Category
+    isAvailable: Boolean
+    status: Status
+  ): Product!
+
+  deleteProduct(id: ID!): Boolean!
+
+  buyProduct(id: ID!): Product!
+  
+  rentProduct(id: ID!): Product!
+}
