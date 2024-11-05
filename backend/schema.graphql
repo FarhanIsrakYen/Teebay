@@ -34,14 +34,13 @@ type Product {
 }
 
 type Query {
-  getUser(id: ID!): User
-  getUsers: [User!]!
-  getProduct(id: ID!): Product
   getProducts: [Product!]!
+  getProduct(id: ID!): Product!
+  myProducts: [Product!]!
 }
 
 type Mutation {
-  registerUser(
+  register(
     firstName: String!
     lastName: String!
     address: String!
@@ -49,6 +48,8 @@ type Mutation {
     phone: String!
     password: String!
   ): User!
+
+  login(email: String!, password: String!): String!
 
   createProduct(
     title: String!
@@ -71,6 +72,6 @@ type Mutation {
   deleteProduct(id: ID!): Boolean!
 
   buyProduct(id: ID!): Product!
-  
+
   rentProduct(id: ID!): Product!
 }

@@ -22,23 +22,26 @@ enum Status {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  password String
-  first_name String
-  last_name String
-  address String
-  phone String
-  products Product[]
+  id            Int     @id     @default(autoincrement())
+  email         String  @unique
+  password      String
+  salt          String
+  firstName     String  @map("first_name")
+  lastName      String  @map("last_name")
+  address       String
+  phone         String
+  products      Product[]
+
+  @@map("users")
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
-  title      String
-  description String
-  category   Category
-  isAvailable Boolean @default(true)
-  ownerId    Int
-  owner      User     @relation(fields: [ownerId], references: [id])
-  status     Status   @default(BUY)
+  id            Int      @id     @default(autoincrement())
+  title         String
+  description   String
+  category      Category
+  isAvailable   Boolean  @map("is_available") @default(true)
+  ownerId       Int      @map("owner_id")
+  owner         User              @relation(fields: [ownerId], references: [id])
+  status        Status            @default(BUY)
 }
